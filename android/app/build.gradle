@@ -3,8 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace "com.golabio.app"
-    compileSdk rootProject.ext.compileSdkVersion
-
+    compileSdk 34
     defaultConfig {
         applicationId "com.golabio.app"
         minSdk rootProject.ext.minSdkVersion
