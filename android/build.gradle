@@ -12,7 +12,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:8.1.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.gms:google-services:4.3.15" // اگر Firebase داری
+        classpath "com.google.gms:google-services:4.3.15"
     }
 }
 
@@ -23,7 +23,6 @@ allprojects {
     }
 }
 
-// این بخش رو اضافه کردیم برای رفع مشکل نسخه جاوا
 subprojects {
     afterEvaluate { project ->
         if (project.hasProperty("android")) {
@@ -32,8 +31,14 @@ subprojects {
                     sourceCompatibility JavaVersion.VERSION_17
                     targetCompatibility JavaVersion.VERSION_17
                 }
-                kotlinOptions {
-                    jvmTarget = "17"
+            }
+
+            // فقط اگر پلاگین Kotlin Android فعال بود
+            if (project.plugins.hasPlugin("kotlin-android")) {
+                project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                    kotlinOptions {
+                        jvmTarget = "17"
+                    }
                 }
             }
         }
