@@ -1,8 +1,8 @@
 buildscript {
     ext {
-        compileSdkVersion = 34
+        compileSdkVersion = 35
         minSdkVersion = 23
-        targetSdkVersion = 34
+        targetSdkVersion = 35
         kotlin_version = '1.9.10'
     }
     repositories {
@@ -27,13 +27,17 @@ subprojects {
     afterEvaluate { project ->
         if (project.hasProperty("android")) {
             project.android {
+                compileSdkVersion 35
+                defaultConfig {
+                    minSdkVersion 23
+                    targetSdkVersion 35
+                }
                 compileOptions {
                     sourceCompatibility JavaVersion.VERSION_17
                     targetCompatibility JavaVersion.VERSION_17
                 }
             }
 
-            // فقط اگر پلاگین Kotlin Android فعال بود
             if (project.plugins.hasPlugin("kotlin-android")) {
                 project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
                     kotlinOptions {
