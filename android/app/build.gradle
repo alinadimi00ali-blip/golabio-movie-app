@@ -1,4 +1,3 @@
-
 apply plugin: 'com.android.application'
 
 android {
@@ -17,9 +16,15 @@ android {
         }
     }
 
+    // این قسمت باعث میشه از جاوا 17 استفاده بشه
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // این قسمت هم برای Kotlin هست
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
     buildTypes {
