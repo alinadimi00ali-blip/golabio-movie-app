@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">گلابیو</string>
+    <string name="title_activity_main">گلابیو</string>
+    <string name="package_name">com.golabio.app</string>
+    <string name="custom_url_scheme">com.golabio.app</string>
+</resources>

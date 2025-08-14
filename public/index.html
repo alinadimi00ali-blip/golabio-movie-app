@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گلابیو - سایت فیلم و سریال</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #000; color: #fff; }
+        .header { background: #1a1a1a; padding: 1rem; text-align: center; }
+        .hero { padding: 2rem; text-align: center; background: linear-gradient(135deg, #000, #1a5f1a); }
+        .movies { padding: 2rem; }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .movie-card { background: #1a1a1a; padding: 1rem; border-radius: 8px; }
+        .movie-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 style="color: #4ade80;">🎬 گلابیو</h1>
+        <p>بهترین فیلم‌ها و سریال‌های ایرانی و خارجی</p>
+    </header>
+    
+    <section class="hero">
+        <h2>خوش آمدید به گلابیو</h2>
+        <p>مجموعه‌ای از بهترین فیلم‌ها و سریال‌ها</p>
+    </section>
+    
+    <section class="movies">
+        <h3 style="color: #4ade80; margin-bottom: 1rem;">فیلم‌های ایرانی</h3>
+        <div class="movie-grid">
+            <div class="movie-card">
+                <img src="persian-cinema-poster.png" alt="فیلم ایرانی">
+                <h4>فیلم ایرانی ۱</h4>
+            </div>
+            <div class="movie-card">
+                <img src="persian-romance-movie-poster.png" alt="فیلم عاشقانه">
+                <h4>فیلم عاشقانه</h4>
+            </div>
+        </div>
+        
+        <h3 style="color: #4ade80; margin: 2rem 0 1rem;">فیلم‌های خارجی</h3>
+        <div class="movie-grid">
+            <div class="movie-card">
+                <img src="dark-knight-poster.png" alt="شوالیه تاریکی">
+                <h4>The Dark Knight</h4>
+            </div>
+            <div class="movie-card">
+                <img src="inception-movie-poster.png" alt="تلقین">
+                <h4>Inception</h4>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
