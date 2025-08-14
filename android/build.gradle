@@ -1,19 +1,14 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    
     repositories {
         google()
         mavenCentral()
     }
-    android {
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.2'
+        // در صورت نیاز به افزونه‌های دیگر مثل Firebase اینجا اضافه کن
+        // classpath 'com.google.gms:google-services:4.3.15'
     }
 }
-
-apply from: "variables.gradle"
 
 allprojects {
     repositories {
