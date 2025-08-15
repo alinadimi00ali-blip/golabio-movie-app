@@ -46,6 +46,10 @@ jobs:
           ./gradlew assembleRelease --no-daemon
 
       - name: Sign APK
+        env:
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS_PASSWORD: ${{ secrets.ANDROID_KEY_ALIAS_PASSWORD }}
         run: |
           jarsigner -verbose \
             -keystore android/app/my-key.keystore \
