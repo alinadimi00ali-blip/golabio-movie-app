@@ -46,8 +46,9 @@ jobs:
           echo "=== Searching for APK files ==="
           find android/ -type f -name "*.apk"
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+            - name: Upload APK
+              uses: actions/upload-artifact@v4
+              with:
+                name: android-apks
+                path: android/app/build/outputs/apk/**/*.apk
+          
