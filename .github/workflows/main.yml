@@ -41,10 +41,10 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleRelease --no-daemon
 
-      - name: Check APK outputs
+      - name: Find APK
         run: |
-          echo "=== APK files found ==="
-          find android/app/build/outputs -type f -name "*.apk" || echo "No APK found"
+          echo "=== Searching for APK files ==="
+          find android/ -type f -name "*.apk"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
