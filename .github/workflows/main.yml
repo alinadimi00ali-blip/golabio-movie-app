@@ -25,7 +25,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-
+    
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
@@ -41,15 +41,11 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleRelease --no-daemon
 
-      - name: List APK outputs
+      - name: Check APK outputs
         run: |
-          echo "Listing APK outputs..."
-          ls -R android/app/build/outputs || echo "No APK found"
-      - name: Debug APK path
-        run: |
-          echo "=== Outputs directory ==="
-          ls -R android/app/build/outputs || echo "No outputs found"
-          
+          echo "=== APK files found ==="
+          find android/app/build/outputs -type f -name "*.apk" || echo "No APK found"
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
