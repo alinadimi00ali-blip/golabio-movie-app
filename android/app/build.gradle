@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace "com.golabio.app"
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.golabio.app"
