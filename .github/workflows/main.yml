@@ -20,12 +20,12 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Set up JDK 17
+      - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-    
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
@@ -35,7 +35,11 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Build unsigned APK
+      - name: Decode Keystore
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/my-key.keystore
+
+      - name: Build Release APK
         run: |
           cd android
           chmod +x ./gradlew
@@ -44,16 +48,19 @@ jobs:
       - name: Sign APK
         run: |
           jarsigner -verbose \
-            -keystore my-key.keystore \
-            -storepass 123456 \
+            -keystore android/app/my-key.keystore \
+            -storepass $ANDROID_KEYSTORE_PASSWORD \
+            -keypass $ANDROID_KEY_ALIAS_PASSWORD \
             android/app/build/outputs/apk/release/app-release-unsigned.apk \
-            my-key-alias
-          $ANDROID_HOME/build-tools/34.0.0/zipalign -v 4 \
-            android/app/build/outputs/apk/release/app-release-unsigned.apk \
+            $ANDROID_KEY_ALIAS
+
+      - name: Align APK
+        run: |
+          zipalign -v 4 android/app/build/outputs/apk/release/app-release-unsigned.apk \
             android/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: android-apks
+          name: app-release.apk
           path: android/app/build/outputs/apk/release/app-release.apk
