@@ -45,7 +45,11 @@ jobs:
         run: |
           echo "Listing APK outputs..."
           ls -R android/app/build/outputs || echo "No APK found"
-
+      - name: Debug APK path
+        run: |
+          echo "=== Outputs directory ==="
+          ls -R android/app/build/outputs || echo "No outputs found"
+          
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
