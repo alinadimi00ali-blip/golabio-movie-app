@@ -1,70 +1,44 @@
 name: Build Android APK
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v3
+        
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '18'
           cache: 'npm'
-
-      - name: Setup JDK 17
-        uses: actions/setup-java@v4
+          
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
-
+          
       - name: Install dependencies
         run: npm install --legacy-peer-deps
-
-      - name: Build web assets
-        run: npm run build || echo "Build completed with warnings"
-
+        
+      - name: Prepare web assets
+        run: |
+          mkdir -p www
+          cp public/index.html www/
+          cp public/*.png www/ || true
+          
       - name: Sync Capacitor
         run: npx cap sync android
-
-      - name: Decode Keystore
-        run: |
-          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/my-key.keystore
-
-      - name: Build Release APK
+        
+      - name: Build APK
         run: |
           cd android
-          chmod +x ./gradlew
-          ./gradlew assembleRelease --no-daemon
-
-      - name: Sign APK
-        env:
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          ANDROID_KEY_ALIAS_PASSWORD: ${{ secrets.ANDROID_KEY_ALIAS_PASSWORD }}
-        run: |
-          jarsigner -verbose \
-            -keystore android/app/my-key.keystore \
-            -storepass $ANDROID_KEYSTORE_PASSWORD \
-            -keypass $ANDROID_KEY_ALIAS_PASSWORD \
-            android/app/build/outputs/apk/release/app-release-unsigned.apk \
-            $ANDROID_KEY_ALIAS
-
-      - name: Align APK
-        run: |
-          zipalign -v 4 android/app/build/outputs/apk/release/app-release-unsigned.apk \
-            android/app/build/outputs/apk/release/app-release.apk
-
+          chmod +x gradlew
+          ./gradlew assembleDebug
+          
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+          name: golabio-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
